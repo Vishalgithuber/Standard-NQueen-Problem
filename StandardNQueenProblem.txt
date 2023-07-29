@@ -1,0 +1,62 @@
+// package Recursionproblem;
+import java.util.*;
+
+public class StandradQueenPratice {
+    public static void nQueens(char Board[][] , int row){
+        //base condition in
+        if(row == Board.length) {
+            printBoard(Board);  // print all the combination of the board chess
+            return;
+        }
+        //column loop
+        for(int i =0;i<Board.length; i++) {
+            if (isQueenSafe(Board, row, i)) {
+                Board[row][i] = 'Q'; // initilize the queen into the borad  //
+                nQueens(Board, row + 1); // recursive call to itself
+                Board[row][i] = 'x';  // backtracking part of the board
+            }
+        }
+    }
+    public static boolean isQueenSafe(char [][] Board , int row , int col){
+        // the main procedure over there
+        // vertically up
+        for(int i = row - 1 ;i>=0;i--) {
+            if (Board[i][col] == 'Q') {
+                return false;
+            }
+        }
+            // for dialog left
+            for(int i = row-1, j = col-1; i >= 0 && j >= 0 ; i--,j--) {
+                if (Board[i][j] == 'Q') {
+                    return false;
+                }
+            }
+            //dialog right
+        for(int i = row-1 , j = col+1;i>=0 && j < Board.length;i--,j++){
+            if(Board[i][j] == 'Q'){
+                return false;
+            }
+        }
+        return true;
+    }
+    public static void printBoard(char Board[][] ){
+        System.out.println("-----------Chess Board------------");
+        for(int i =0;i< Board.length;i++){
+            for(int j = 0 ;j< Board.length;j++){
+                System.out.print(Board[i][j] +" ");
+            }
+            System.out.println();
+        }
+    }
+    public static void main(String[] args) {
+        // character type two dimensional array for printing the chess board
+        int n = 7;
+        char Board[][] = new char[n][n];
+        for(int i =0;i<n;i++){ // initiliae the char array with dot operator
+            for(int j = 0 ;j<n;j++){
+                Board[i][j] = 'x';
+        }
+    }
+        nQueens(Board , 0); // calling the function in
+    }
+}
